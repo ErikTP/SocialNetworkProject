@@ -8,21 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Controller
 public class PostController {
 
+    /****** ### Dependency injektioner för att tillkalla Spring Security ### ******/
     @Autowired
     private PostService postService;
 
     @Autowired
     private UserService userService;
 
-    /******************** Start ********************/
-
+    /********* ### Renderar vy av användarinlägg som innehar cookie värde ### *********/
     @GetMapping("/posts")
     public String allPosts(@ModelAttribute("post") Post post, User user, Model model,
                            @CookieValue(value = "currentUser", required = false) String currentUser) {
@@ -31,12 +30,11 @@ public class PostController {
             model.addAttribute("user", userService.findUserById(Long.parseLong(currentUser)));
             return "posts";
         }
-        model.addAttribute("msg", "You must Sign In to view Posts");
+        model.addAttribute("msg", "You must login to view Posts");
         return "signin";
     }
 
-    /******************** Add Post ********************/
-
+    /**** ### Adderar inlägg som innehar tidstämpel, datum och cookie värde  ### ****/
     @PostMapping("/addpost")
     public String savePost(@ModelAttribute Post post, Model model,
                            @CookieValue("currentUser") String currentUser) {
@@ -50,14 +48,14 @@ public class PostController {
         return "redirect:/posts";
     }
 
-    /******************** Delete Post ********************/
-
+    /****** ### Raderar inlägg utifrån dess id ### ******/
     @GetMapping("/delete-post/{id}")
     public String deletePost(@PathVariable long id) {
         postService.deletePost(id);
         return "redirect:/posts";
     }
 
+    /****** ### Raderar inlägg utifrån en kombination av id och användarnamn ### ******/
     @GetMapping("/delete-by-author/{id}")
     public String deleteByAuthor(@PathVariable long id) {
         postService.deletePostsByAuthorId(id);

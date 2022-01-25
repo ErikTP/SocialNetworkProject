@@ -2,11 +2,9 @@ package com.example.socialnetworkproject.Controller;
 
 import com.example.socialnetworkproject.Entity.Post;
 import com.example.socialnetworkproject.Entity.User;
-import com.example.socialnetworkproject.Repository.UserRepository;
 import com.example.socialnetworkproject.Service.PostService;
 import com.example.socialnetworkproject.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,20 +15,14 @@ import java.util.List;
 @Controller
 public class UserController {
 
-
-    /**************** ### Spring Security --> ### ****************/
-    @Autowired
-    private UserRepository userRepo;
-    /**************** ### <-- Spring Security ### ****************/
-
+    /****** ### Dependency injektioner för att tillkalla Spring Security ### ******/
     @Autowired
     private UserService userService;
 
     @Autowired
     private PostService postService;
 
-    /**************** ### Home ### ****************/
-
+    /**************** ### Webbapplikationens hemsida ### ****************/
     @GetMapping("/")
     public String welcome(@ModelAttribute("user") User user, Model model,
                           @CookieValue(value = "currentUser", required = false) String currentUser) {
@@ -41,8 +33,7 @@ public class UserController {
         return "index";
     }
 
-    /**************** ### Authenticate, Sign In and Create Cookie ### ****************/
-
+    /**** ### Inloggningssida som autentiserar användare och innehar en cookie värde ### ****/
     @GetMapping("/signin")
     public String signIn(@ModelAttribute("user") User user, Model model,
                          @CookieValue(value = "currentUser", required = false) String currentUser) {
@@ -53,6 +44,7 @@ public class UserController {
         return "signin";
     }
 
+    /**** ### Autentiserar användarkontot som innehar cookie värde & id för profilsidan ### ****/
     @PostMapping("/authenticate-user")
     public String authUser(@RequestParam("username") String username,
                            @RequestParam("password") String password,
@@ -70,55 +62,39 @@ public class UserController {
         return "redirect:/authError";
     }
 
+    /**************** ### Felmeddelande vid misslyckad inloggning ### ****************/
     @GetMapping("/authError")
     public String authError(User user, Model model) {
-        model.addAttribute("msg", "The username and password you entered is incorrect. No Account? Sign Up using the link below.");
+        model.addAttribute("msg", "The username and password you entered is incorrect. No Account? Register using the link below.");
         return "signin";
     }
 
-    /**************** ### User Profile based on Cookie and Id Values ### ****************/
-
-//  @GetMapping("/profile/{id}")
-//  public String showProfile(@ModelAttribute("post") Post post, Model model,
-////                            @CookieValue("currentUser") String currentUser,
-//                            @PathVariable long id) {
-//    model.addAttribute("posts", postService.findPostByAuthorIdCreatedDate(id));
-////    model.addAttribute("user", userService.findUserById(Long.parseLong(currentUser)));
-//    model.addAttribute("user", userService.findUserById(id));
-//    return "profile";
-//  }
-
+    /**** ### Autentiserar både användare och inlägg utifrån id på profilsidan ### ****/
     @GetMapping("/profile/{id}")
     public String showProfile(@ModelAttribute("user")User user, Post post, Model model,
                               @CookieValue(value = "currentUser", required = false) String currentUser,
                               @PathVariable long id) {
-//    String username = user.getUsername();
-//    String usersname = userService.findUserByUsername(username);
         if (currentUser != null && currentUser != "") {
             model.addAttribute("posts", postService.findPostByAuthorIdCreatedDate(id));
             model.addAttribute("user", userService.findUserById(Long.parseLong(currentUser)));
-//      System.out.println(username);
             return "profile";
         }
         model.addAttribute("user", userService.findUserById(id));
-//    System.out.println(username);
         return "profile";
     }
 
-    /**************** ### Sign Up and Save User to Database ### ****************/
-
+    /********** ### Registrerar och sparar användare till databasen ### **********/
     @GetMapping("/signup")
     public String signUp(@ModelAttribute("user") User user, Model model,
                          @CookieValue(value = "currentUser", required = false) String currentUser) {
         if (currentUser != null && currentUser != "") {
             model.addAttribute("user", userService.findUserById(Long.parseLong(currentUser)));
-//      System.out.println(user.getUsername());
             return "redirect:/";
         }
-//    System.out.println(user.getUsername());
         return "signup";
     }
 
+    /***** ### Sparar användare och tillsätter placeholder vid bekräftad lösenord ### *****/
     @PostMapping("/save-user")
     public String saveUser(User user,
                            @RequestParam("password") String password,
@@ -132,21 +108,21 @@ public class UserController {
         return "redirect:/failed";
     }
 
+    /****** ### Lyckad registrering som vägleder till inloggningssidan ### ******/
     @GetMapping("/success")
     public String success(@ModelAttribute("user") User user) {
         return "redirect:/signin";
     }
 
+    /**************** ### Felmeddelande vid misslyckad registrering ### ****************/
     @GetMapping("/failed")
     public String failed(@ModelAttribute("user") User user,
                          Model model) {
-        model.addAttribute("msg", "Sign up failed.");
+        model.addAttribute("msg", "Registration failed.");
         return "signup";
     }
 
-
-    /**************** ### Sign Out and Empty Cookie Value ### ****************/
-
+    /**************** ### Utloggning som tömmer cookie värden ### ****************/
     @GetMapping("/signout")
     public String signOut(HttpServletResponse response) {
         Cookie cookie = new Cookie("currentUser", "");
@@ -155,15 +131,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    /**************** ### View All Profiles ### ****************/
-
-//    @GetMapping("/profiles")
-//    public String showProfiles(Model model, User user) {
-//      List<User> users = userService.findAllUsers();
-//      model.addAttribute("users", users);
-//    return "profiles";
-//  }
-
+    /******** ### Renderar lista av databasens användare med cookie värde ### ********/
     @GetMapping("/profiles")
     public String showProfiles(@ModelAttribute("user") User user, Model model,
                                @CookieValue(value = "currentUser", required = false) String currentUser) {
@@ -176,15 +144,7 @@ public class UserController {
         return "profiles";
     }
 
-    /******************** Admin/Edit ********************/
-
-//  @GetMapping("/admin")
-//  public String adminDashboard(Model model, User user) {
-//    List<User> users = userService.findAllUsers();
-//    model.addAttribute("users", users);
-//    return "admin";
-//  }
-
+    /***** ### Möjliggör redigering av en användarkonto som innehar cookie värde ### *****/
     @GetMapping("/edit/{id}")
     public String editUser(Model model,
                            @PathVariable long id,
@@ -196,6 +156,7 @@ public class UserController {
         return "edit";
     }
 
+    /******** ### Uppdaterar användarkontot utifrån dess id ### ********/
     @PostMapping("/update-user")
     public String updateUser(@ModelAttribute User user) {
         userService.updateUser(user);
@@ -203,52 +164,11 @@ public class UserController {
         return "redirect:/profile/" + id;
     }
 
+    /******** ### Raderar användarkontot utifrån dess id ### ********/
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable long id) {
         postService.deletePostsByAuthorId(id);
         userService.deleteUser(id);
         return "redirect:/signout";
     }
-
-    /**************** ### Template ### ****************/
-
-//  Code goes here
-
-    /**************** ### Spring Security ### ****************/
-
-//  In order to view pages restricted to "currentUser"-Cookies we have to comment the Cookies out
-//  from the methods above atm. Same goes for PostController.
-
-//  @GetMapping("/")
-//  public String viewHomePage() {
-//    return "index";
-//  }
-
-//  @GetMapping("/register")
-//  public String showRegistrationForm(Model model) {
-//    model.addAttribute("user", new User());
-//
-//    return "signup_form";
-//  }
-
-//  @PostMapping("/process_register")
-//  public String processRegister(User user) {
-//    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//    String encodedPassword = passwordEncoder.encode(user.getPassword());
-//    user.setPassword(encodedPassword);
-//    user.setImg("https://via.placeholder.com/150");
-//
-//    userRepo.save(user);
-//
-//    return "register_success";
-//  }
-
-//  @GetMapping("/users")
-//  public String listUsers(Model model) {
-//    List<User> listUsers = userRepo.findAll();
-//    model.addAttribute("listUsers", listUsers);
-//
-//    return "users";
-//  }
-
 }

@@ -17,8 +17,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    /*** ### Save User and Encrypted Password ### ***/
-
+    /*** ### Spara användare och enkrypterad lösenord ### ***/
     public void saveUser(User user) {
         byte[] salt = generateSalt();
         String saltString = convertByteToStringForDB(salt);
@@ -31,8 +30,7 @@ public class UserService {
         }
     }
 
-    /*** ### Password: Create Hash ### ***/
-
+    /*** ### Skapa Hash till lösenord ### ***/
     public String createSecureHashPass(String plainTextPassword, byte[] salt) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -46,28 +44,24 @@ public class UserService {
         return "";
     }
 
-    /*** ### Password: Convert Hashed Password to String ### ***/
-
+    /*** ### Konvertera lösenordets Hash till sträng ### ***/
     private String convertByteToStringForDB(byte[] hashedPass) {
         return DatatypeConverter.printHexBinary(hashedPass).toLowerCase();
     }
 
-    /*** ### Password: Convert String Password to Byte ### ***/
-
+    /*** ### Konvertera lösenordets sträng till Byte ### ***/
     private byte[] convertStringToByteForDB(String dbPassword) {
         return DatatypeConverter.parseHexBinary(dbPassword);
     }
 
-    /*** ### Password: Generate Salt ### ***/
-
+    /*** ### Generera lösenordets Salt ### ***/
     private byte[] generateSalt() {
         SecureRandom sr = new SecureRandom();
         byte[] hashedSalt = sr.generateSeed(12);
         return hashedSalt;
     }
 
-    /*** ### Authenticate User by Checking DB for Username and Comparing Passwords ***/
-
+    /*** ### Autentisera användare genom DB som letar användarnamn och jämför lösenord ***/
     public boolean authUser(String username, String password) {
         User dbUser = userRepository.findByUsername(username);
         if (dbUser == null) {
@@ -78,26 +72,22 @@ public class UserService {
         return dbUser.getPassword().equals(passwordToCompare);
     }
 
-    /*** ### List All Users ### ***/
-
+    /*** ### Lista av alla användare ### ***/
     public List<User> findAllUsers() {
         return userRepository.findAll();
     }
 
-    /*** ### Find One User by Id ### ***/
-
+    /*** ### Hitta användare via deras id ### ***/
     public User findUserById(long id) {
         return userRepository.findById(id).orElseThrow();
     }
 
-    /*** ### Find One User by Username ### ***/
-
+    /*** ### Hitta användare via deras användarnamn ### ***/
     public User findUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    /*** ### Update User Credentials and Save to Database ### ***/
-
+    /*** ### Uppdatera användaruppgifter och spara det till databas ### ***/
     public void updateUser(User user) {
         User userDB = userRepository.findById(user.getId()).orElseThrow();
         userDB.setUsername(user.getUsername());
@@ -105,8 +95,7 @@ public class UserService {
         userRepository.save(userDB);
     }
 
-    /*** ### Remove User from Database ### ***/
-
+    /*** ### Radera användare från databas via deras id ### ***/
     public void deleteUser(long id) {
         userRepository.deleteById(id);
     }
