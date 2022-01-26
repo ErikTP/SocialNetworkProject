@@ -33,7 +33,7 @@
             <li><a th:href="@{'/posts'}">Posts</a></li>
             <li><a th:href="@{'/profile/' + ${user.id}}">Profile</a></li>
             <li><a th:href="@{'/edit/' + ${user.id}}">Edit Account</a></li>
-            <li><a th:href="@{'/signout'}">Logout</a></li>
+            <li><a th:href="@{'/logout'}">Logout</a></li>
         </ul>
     </div>
 </nav>
@@ -48,8 +48,8 @@
         </h1>
         <ul>
             <li><a th:href="@{'/profiles'}">Members</a></li>
-            <li><a th:href="@{'/signup'}">Register</a></li>
-            <li><a th:href="@{'/signin'}">Login</a></li>
+            <li><a th:href="@{'/register'}">Register</a></li>
+            <li><a th:href="@{'/login'}">Login</a></li>
         </ul>
     </div>
 </div>

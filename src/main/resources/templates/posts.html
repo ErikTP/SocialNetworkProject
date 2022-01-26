@@ -23,11 +23,11 @@
 
 <!--Blockelement som adderar båda navigeringsfält "nav" & "nav-2"-->
 <th:block th:if="${user.id}">
-    <nav th:include="template.html :: nav"></nav>
+    <nav th:include="navigation.html :: nav"></nav>
 </th:block>
 
 <th:block th:if="${user.id == 0}">
-    <nav th:include="template.html :: div.nav-2"></nav>
+    <nav th:include="navigation.html :: div.nav-2"></nav>
 </th:block>
 
 <!--Innehållsblock för inläggsformulär & dess renderade meddelande med rubriken "Posts"-->
@@ -36,7 +36,7 @@
     <h1>Posts</h1>
 
     <!--Dirigerar formuläret till "/addpost" och deklarerar modellobjektet "post"-->
-    <form th:action="@{/addpost}" th:object="${post}" method="POST">
+    <form th:action="@{/addPost}" th:object="${post}" method="POST">
 
         <div class="form-group">
             <label for="title" class="col-form-label">Title</label>
@@ -49,7 +49,7 @@
         </div>
 
         <!--Knappelement som sparar formulärets inläggsinformation-->
-        <input class="btn btn-primary btn-block" type="submit" value="Submit Post">
+        <input class="btn btn-primary btn-block" type="submit" value="Send Post">
 
     </form>
 
@@ -60,7 +60,7 @@
             <div class="card flex-md-row mb-4 box-shadow h-md-250">
                 <div class="card-body d-flex flex-column align-items-start">
 
-                    <!--Textattribut som renderar värden på modellattributet "post"-->
+                    <!--Textattribut som renderar användarnamn och titel på modellattributet "post"-->
                     <strong class="d-inline-block mb-2 text-primary" th:text="${post.author.username}"></strong>
                     <h3 class="mb-0">
                         <a class="text-dark" href="#">
@@ -68,7 +68,7 @@
                         </a>
                     </h3>
 
-                    <!--Textattribut som renderar värden på modellattributet "post"-->
+                    <!--Textattribut som renderar datum och innehåll på modellattributet "post"-->
                     <div class="mb-1 text-muted" th:text="${post.createdDate}"></div>
                     <p class="card-text mb-auto" th:text="${post.content}"></p>
 
@@ -80,7 +80,7 @@
 
                 <!--Bäddar in bildruta genom att länka till bildplatshållartjänsten Placeholder-->
                 <img src="https://via.placeholder.com/150" class="card-img-right flex-auto d-none d-md-block"
-                     alt="Card Image">
+                     alt="Post Image">
 
             </div>
         </div>

@@ -23,41 +23,41 @@ public class PostController {
 
     /********* ### Renderar vy av användarinlägg som innehar cookie värde ### *********/
     @GetMapping("/posts")
-    public String allPosts(@ModelAttribute("post") Post post, User user, Model model,
-                           @CookieValue(value = "currentUser", required = false) String currentUser) {
-        if (currentUser != null) {
+    public String viewPosts(@ModelAttribute("post") Post post, User user, Model model,
+                           @CookieValue(value = "userMemory", required = false) String userMemory) {
+        if (userMemory != null) {
+            model.addAttribute("user", userService.findUserById(Long.parseLong(userMemory)));
             model.addAttribute("posts", postService.findPostsByCreatedDate());
-            model.addAttribute("user", userService.findUserById(Long.parseLong(currentUser)));
             return "posts";
         }
-        model.addAttribute("msg", "You must login to view Posts");
-        return "signin";
+        model.addAttribute("error_msg", "You must be logged in to view Posts");
+        return "login";
     }
 
     /**** ### Adderar inlägg som innehar tidstämpel, datum och cookie värde  ### ****/
-    @PostMapping("/addpost")
-    public String savePost(@ModelAttribute Post post, Model model,
-                           @CookieValue("currentUser") String currentUser) {
-        User curUser = userService.findUserById(Long.parseLong(currentUser));
-        model.addAttribute("currentUser", currentUser);
-        post.setAuthor(curUser);
-        LocalDateTime now = LocalDateTime.now();
-        Timestamp timestamp = Timestamp.valueOf(now);
-        post.setCreatedDate(timestamp);
+    @PostMapping("/addPost")
+    public String postSave(@ModelAttribute Post post, Model model,
+                           @CookieValue("userMemory") String userMemory) {
+        User postUser = userService.findUserById(Long.parseLong(userMemory));
+        model.addAttribute("userMemory", userMemory);
+        post.setAuthor(postUser);
+        LocalDateTime date = LocalDateTime.now();
+        Timestamp showtime = Timestamp.valueOf(date);
+        post.setCreatedDate(showtime);
         postService.savePost(post);
         return "redirect:/posts";
     }
 
     /****** ### Raderar inlägg utifrån dess id ### ******/
     @GetMapping("/delete-post/{id}")
-    public String deletePost(@PathVariable long id) {
+    public String postDelete(@PathVariable long id) {
         postService.deletePost(id);
         return "redirect:/posts";
     }
 
     /****** ### Raderar inlägg utifrån en kombination av id och användarnamn ### ******/
     @GetMapping("/delete-by-author/{id}")
-    public String deleteByAuthor(@PathVariable long id) {
+    public String postsDeletesByAuthor(@PathVariable long id) {
         postService.deletePostsByAuthorId(id);
         return "redirect:/posts";
     }

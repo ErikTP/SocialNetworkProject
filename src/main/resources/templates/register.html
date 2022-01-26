@@ -19,11 +19,11 @@
 
 <!--Blockelement som adderar båda navigeringsfält "nav" & "nav-2"-->
 <th:block th:if="${user.id}">
-    <nav th:include="template.html :: nav"></nav>
+    <nav th:include="navigation.html :: nav"></nav>
 </th:block>
 
 <th:block th:if="${user.id == 0}">
-    <nav th:include="template.html :: div.nav-2"></nav>
+    <nav th:include="navigation.html :: div.nav-2"></nav>
 </th:block>
 
 <!--Sektionelement för registreringsformuläret-->
@@ -70,7 +70,7 @@
         </div>
 
         <div class="form-group">
-            <input id="password_confirm" name="password_confirm" class="form-control" type="password"
+            <input id="password_verify" name="password_verify" class="form-control" type="password"
                    placeholder="Confirm Password *" required aria-required="true">
         </div>
 

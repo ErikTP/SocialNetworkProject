@@ -19,11 +19,11 @@
 
 <!--Blockelement som adderar båda navigeringsfält "nav" & "nav-2"-->
 <th:block th:if="${user.id}">
-    <nav th:include="template.html :: nav"></nav>
+    <nav th:include="navigation.html :: nav"></nav>
 </th:block>
 
 <th:block th:if="${user.id == 0}">
-    <nav th:include="template.html :: div.nav-2"></nav>
+    <nav th:include="navigation.html :: div.nav-2"></nav>
 </th:block>
 
 <!--Sektionelement för Social Network Management framsida-->
@@ -37,8 +37,8 @@
 
             <!--Behållarelement med hyperlänkar för inloggning & registrering-->
             <div class="buttons">
-                <a th:if="${user.id == 0}" th:href="@{'/signup'}" class="btn btn-primary">Register Account</a>
-                <a th:if="${user.id == 0}" th:href="@{'/signin'}" class="btn btn">Login</a>
+                <a th:if="${user.id == 0}" th:href="@{'/register'}" class="btn btn-primary">Register Account</a>
+                <a th:if="${user.id == 0}" th:href="@{'/login'}" class="btn btn">Login</a>
             </div>
 
         </div>

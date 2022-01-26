@@ -19,11 +19,11 @@
 
 <!--Blockelement som adderar båda navigeringsfält "nav" & "nav-2"-->
 <th:block th:if="${user.id}">
-    <nav th:include="template.html :: nav"></nav>
+    <nav th:include="navigation.html :: nav"></nav>
 </th:block>
 
 <th:block th:if="${user.id == 0}">
-    <nav th:include="template.html :: div.nav-2"></nav>
+    <nav th:include="navigation.html :: div.nav-2"></nav>
 </th:block>
 
 <!--Sektionelement för Social Network Members framsida-->
@@ -36,7 +36,7 @@
         <div class="profile bg-light">
 
             <!--Bildattribut vars klass medför cirkulär bildform för modellobjektet "user"-->
-            <img class="round-img" th:src="@{${user.img}}" alt="" src="">
+            <img class="round-img" th:src="@{${user.img}}" alt="Profile Image" src="">
 
             <!--Behållarelement med textattribut för "user" & en hyperlänk till profilsidan-->
             <div class="py-2">

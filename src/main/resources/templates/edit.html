@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
     <link rel="stylesheet" href="/css/style.css">
 
+    <!--JQuery länk för att koda Jquery i den anslutna JavaScript filen "main.js"-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" defer></script>
+    <script src="/js/main.js" defer></script>
+
     <title>Edit User Account</title>
 </head>
 
@@ -19,11 +23,11 @@
 
 <!--Blockelement som adderar båda navigeringsfält "nav" & "nav-2"-->
 <th:block th:if="${user.id}">
-    <nav th:include="template.html :: nav"></nav>
+    <nav th:include="navigation.html :: nav"></nav>
 </th:block>
 
 <th:block th:if="${user.id == 0}">
-    <nav th:include="template.html :: div.nav-2"></nav>
+    <nav th:include="navigation.html :: div.nav-2"></nav>
 </th:block>
 
 <!--Innehållsblock för inläggsformuläret med rubriken "Edit Account"-->
