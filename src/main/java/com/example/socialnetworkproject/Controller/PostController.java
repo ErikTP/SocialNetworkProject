@@ -44,7 +44,7 @@ public class PostController {
         LocalDateTime date = LocalDateTime.now();
         Timestamp showtime = Timestamp.valueOf(date);
         post.setCreatedDate(showtime);
-        postService.savePost(post);
+        postService.postSave(post);
         return "redirect:/posts";
     }
 

@@ -62,7 +62,7 @@ public class UserController {
     @GetMapping("/failed")
     public String regFailed(@ModelAttribute("user") User user,
                          Model model) {
-        model.addAttribute("error_msg", "Registration failed.");
+        model.addAttribute("regError_msg", "Registration failed.");
         return "register";
     }
 
@@ -86,7 +86,7 @@ public class UserController {
     /**************** ### Felmeddelande vid misslyckad inloggning ### ****************/
     @GetMapping("/loginError")
     public String loginError(User user, Model model) {
-        model.addAttribute("error_msg", "The username or password is incorrect. No Account? Register now!");
+        model.addAttribute("logError_msg", "The username or password is incorrect. No Account? Register now!");
         return "login";
     }
 

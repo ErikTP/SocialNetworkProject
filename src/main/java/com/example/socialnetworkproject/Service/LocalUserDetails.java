@@ -5,11 +5,11 @@ import com.example.socialnetworkproject.Entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class CustomUserDetails implements UserDetails {
+public class LocalUserDetails implements UserDetails {
 
     private User user;
 
-    public CustomUserDetails(User user) {
+    public LocalUserDetails(User user) {
         this.user = user;
     }
 

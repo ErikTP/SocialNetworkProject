@@ -13,11 +13,11 @@ public class PostService {
     @Autowired
     private PostRepository postRepository;
 
-    public void savePost(Post post) {
+    public void postSave(Post post) {
         postRepository.save(post);
     }
 
-    public List<Post> findAllPosts() {
+    public List<Post> postList() {
         return postRepository.findAll();
     }
 

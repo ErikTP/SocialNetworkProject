@@ -2,7 +2,7 @@ package com.example.socialnetworkproject.SecurityConfiguration;
 
 import javax.sql.DataSource;
 
-import com.example.socialnetworkproject.Service.CustomUserDetailsService;
+import com.example.socialnetworkproject.Service.LocalUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new CustomUserDetailsService();
+        return new LocalUserDetailsService();
     }
 
     @Bean

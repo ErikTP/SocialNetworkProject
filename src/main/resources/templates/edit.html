@@ -31,49 +31,52 @@
 </th:block>
 
 <!--Innehållsblock för inläggsformuläret med rubriken "Edit Account"-->
-<div class="container">
+<section class="edit-section">
+    <div class="container edit">
 
-    <h1>Edit Account</h1>
+        <h1 class="edit-acc">Edit Account</h1>
 
-    <!--Dirigerar formuläret till "/update-user" och deklarerar modellobjektet "user"-->
-    <form name="edit" action="#" th:action="@{/update-user/}" th:object="${user}" method="POST">
+        <!--Dirigerar formuläret till "/update-user" och deklarerar modellobjektet "user"-->
+        <form name="edit" action="#" th:action="@{/update-user/}" th:object="${user}" method="POST">
 
-        <input type="hidden" th:field="*{id}">
+            <input type="hidden" th:field="*{id}">
 
-        <div class="form-group">
-            <label for="username" class="col-form-label">Username</label>
-            <input type="text" class="form-control" id="username" placeholder="Username" autocomplete="off" th:field="*{username}">
-        </div>
+            <div class="form-group">
+                <label for="username" class="col-form-label edit-label">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="Username" autocomplete="off" th:field="*{username}">
+            </div>
 
-        <div class="form-group">
-            <label for="firstname" class="col-form-label">First Name</label>
-            <input type="text" class="form-control" id="firstname" placeholder="First Name" autocomplete="off" th:field="*{firstname}">
-        </div>
+            <div class="form-group">
+                <label for="firstname" class="col-form-label edit-label">First Name</label>
+                <input type="text" class="form-control" id="firstname" placeholder="First Name" autocomplete="off" th:field="*{firstname}">
+            </div>
 
-        <div class="form-group">
-            <label for="lastname" class="col-form-label">Last Name</label>
-            <input type="text" class="form-control" id="lastname" placeholder="Last Name" autocomplete="off" th:field="*{lastname}">
-        </div>
+            <div class="form-group">
+                <label for="lastname" class="col-form-label edit-label">Last Name</label>
+                <input type="text" class="form-control" id="lastname" placeholder="Last Name" autocomplete="off" th:field="*{lastname}">
+            </div>
 
-        <div class="form-group">
-            <label for="email" class="col-form-label">Email</label>
-            <input type="text" class="form-control" id="email" placeholder="Email" autocomplete="off" th:field="*{email}">
-        </div>
+            <div class="form-group">
+                <label for="email" class="col-form-label edit-label">Email</label>
+                <input type="text" class="form-control" id="email" placeholder="Email" autocomplete="off" th:field="*{email}">
+            </div>
 
-        <div class="form-group">
-            <label for="address" class="col-form-label">Address</label>
-            <input type="text" class="form-control" id="address" placeholder="Address" autocomplete="off" th:field="*{address}">
-        </div>
+            <div class="form-group">
+                <label for="address" class="col-form-label edit-label">Address</label>
+                <input type="text" class="form-control" id="address" placeholder="Address" autocomplete="off" th:field="*{address}">
+            </div>
 
-        <!--Knappelement som sparar formulärets användarinformation-->
-        <input class="btn btn-primary btn-block" type="submit" value="Save">
+            <!--Knappelement som sparar formulärets användarinformation-->
+            <input class="btn btn-primary btn-block" type="submit" value="Save">
 
-    </form>
+            <!--Hyperlänk som raderar användarkontot-->
+            <a id="delAccount" th:href="@{'/delete/' + ${user.id}}">Delete Account</a>
 
-    <!--Hyperlänk som raderar användarkontot-->
-    <a id="delAccount" th:href="@{'/delete/' + ${user.id}}">Delete Account</a>
+        </form>
 
-</div>
+
+    </div>
+</section>
 
 </body>
 

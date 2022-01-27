@@ -1,10 +1,59 @@
-.container {
+.container{
     max-width: 1100px;
     margin: auto;
     overflow: hidden;
     padding: 0 2rem;
     margin-top: 6rem;
-    margin-bottom: 3rem; }
+    margin-bottom: 3rem;
+    height: 100vh;
+}
+
+.edit{
+    max-width: 1100px;
+    margin: auto;
+    overflow: hidden;
+    padding-top: 4.8rem;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    height: 100vh;
+}
+
+.edit-section{
+    background: url("../img/edit-account.jpg");
+    position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+    margin-top: -2rem;
+}
+
+.edit-label{
+    font-weight: bold;
+    font-size: 16px;
+    color: #fcfcfc;
+    box-shadow: inset 2px 2px 0px 0px #18b1a8;
+}
+
+#delAccount{
+    display: inline-block;
+    font-size: 16px;
+    background-color: #ff0015;
+    color: #ffffff;
+    padding: 2px 8px 2px 8px;
+    border-radius: 5px;
+}
+
+#delAccount:hover{
+    box-shadow: inset 0px 0px 1px 3px #000000;
+    color: #000000;
+    font-weight: bold;
+}
+
+.edit-acc{
+    color: #0d6efd;
+    border-left: 3px solid #18b1a8;
+}
 
 .x-large {
     font-size: 4rem;
@@ -134,9 +183,10 @@
     border: 1px solid #ccc; }
 
 * {
-    box-sizing: border-box;
     margin: 0;
-    padding: 0; }
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
     font-size: 1rem;
@@ -176,8 +226,9 @@ img {
 
 .landing {
     position: relative;
-    background: url("../img/showcase.jpg") no-repeat center center/cover;
+    background: url("../img/social-network.jpg") no-repeat center center/cover;
     height: 100vh; }
+
 .landing-inner {
     color: #fff;
     height: 100vh;

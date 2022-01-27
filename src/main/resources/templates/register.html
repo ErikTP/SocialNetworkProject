@@ -33,6 +33,9 @@
         <i class="fa fa-user"></i> Register Your Account
     </p>
 
+    <!--Textattribut som renderar felmeddelande på modellattributet "regError_msg"-->
+    <p th:text="${regError_msg}"></p>
+
     <!--Dirigerar formuläret till "/save-user" och deklarerar modellobjektet "user"-->
     <form name="register" class="form" th:action="@{/save-user}" th:object="${user}" method="POST">
 
