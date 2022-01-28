@@ -9,13 +9,16 @@
     <!--CSS ramverket Bootstrap & Fontawesome anslutna till CSS filen "style.css"-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 
     <title>Profile</title>
 </head>
 
 <body>
+
+<!--Bakgrundsbild inom div-element-->
+<div class="background-profile-img">
 
 <!--Blockelement som adderar båda navigeringsfält "nav" & "nav-2"-->
 <th:block th:if="${user.username != null}">
@@ -28,20 +31,22 @@
 
 <!--Sektionelement för profilens framsida-->
 <section class="container">
-    <a th:href="@{'/profiles'}" class="btn">View All Members</a>
+        <h1 class="text-profile"> <i class="fas fa-user-tie"></i> Profile</h1>
+        <a th:href="@{'/profiles'}" class="btn btn-primary">View All Members</a> <br>
 
-    <!--Behållarelement med textattribut & bildattribut för objektet "user"-->
-    <div class="profile-grid my-1">
-        <div class="profile-top bg-light p-2">
-            <img th:src="@{${user.img}}" alt="Profile Image" src="">
-            <h2 th:text="${user.username}"></h2>
-            <p th:text="${user.title}"></p>
-            <p th:text="${user.address}"></p>
+        <!--Behållarelement med textattribut & bildattribut för objektet "user"-->
+        <div class="profile-grid my-1">
+            <div class="profile-top bg-light p-2">
+                <img th:src="@{${user.img}}" alt="Profile Image" src="">
+                <h2 th:text="${user.username}"></h2>
+                <p th:text="${user.title}"></p>
+                <p th:text="${user.address}"></p>
+            </div>
         </div>
-    </div>
+
 
 </section>
-
+</div>
 </body>
 
 </html>

@@ -9,13 +9,16 @@
     <!--CSS ramverket Bootstrap & Fontawesome anslutna till CSS filen "style.css"-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 
     <title>User Registration</title>
 </head>
 
 <body>
+
+<!--Backgrundsbild inom div-element"-->
+<div class="background-reg-image">
 
 <!--Blockelement som adderar båda navigeringsfält "nav" & "nav-2"-->
 <th:block th:if="${user.id}">
@@ -28,13 +31,11 @@
 
 <!--Sektionelement för registreringsformuläret-->
 <section class="container">
-    <h1 class="targe text-primary">Registration</h1>
-    <p class="lead">
-        <i class="fa fa-user"></i> Register Your Account
-    </p>
+    <h1 class="text-reg"> <i class="fas fa-user-check"></i> Registration</h1>
+    <p class="lead"> Register Your Account</p>
 
     <!--Textattribut som renderar felmeddelande på modellattributet "regError_msg"-->
-    <p th:text="${regError_msg}"></p>
+    <p class="lead" th:text="${regError_msg}"></p>
 
     <!--Dirigerar formuläret till "/save-user" och deklarerar modellobjektet "user"-->
     <form name="register" class="form" th:action="@{/save-user}" th:object="${user}" method="POST">
@@ -83,7 +84,7 @@
     </form>
 
 </section>
-
+</div>
 </body>
 
 </html>

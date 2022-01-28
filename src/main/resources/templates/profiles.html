@@ -9,13 +9,16 @@
     <!--CSS ramverket Bootstrap & Fontawesome anslutna till CSS filen "style.css"-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 
     <title>Social Network Members</title>
 </head>
 
 <body>
+
+<!--Bakgrundsbild inom div-element-->
+<div class="div-profiles-img">
 
 <!--Blockelement som adderar båda navigeringsfält "nav" & "nav-2"-->
 <th:block th:if="${user.id}">
@@ -28,7 +31,7 @@
 
 <!--Sektionelement för Social Network Members framsida-->
 <section class="container">
-    <h1 class="large text-primary">Social Network Members</h1>
+    <h1 class="text-profiles"> <i class="fas fa-users"></i> Social Network Members</h1>
     <p class="lead"><i class="fa fa-connectdevelop" aria-hidden="true"></i>Digital view of connected members</p>
 
     <!--Iterativ attribut för modellobjektet "user"-->
@@ -47,7 +50,7 @@
             </div>
 
             <!--Oordnad listattribut som renderar beskrivande profilinformation-->
-            <ul>
+            <ul class="text-link">
                 <li class="text-primary"><i class="fa fa-check"></i> Male</li>
                 <li class="text-primary"><i class="fa fa-check"></i> Single</li>
                 <li class="text-primary"><i class="fa fa-check"></i> Unemployed</li>
@@ -58,7 +61,7 @@
 
     </div>
 </section>
-
+</div>
 </body>
 
 </html>
