@@ -74,8 +74,8 @@
                         <p class="card-text mb-auto" th:text="${post.content}"></p>
 
                         <!--Hyperlänkar som både raderar enskilda inlägg & totala antalet inlägg-->
-                        <a th:if="${post.author.id == user.id}" th:href="@{'/delete-post/' + ${post.id}}">Delete Post</a>
-                        <a id="delPosts" th:if="${post.author.id == user.id}" th:href="@{'/delete-by-author/' + ${post.author.id}}">Delete All My Posts</a>
+                        <a class="post-one" th:if="${post.author.id == user.id}" th:href="@{'/delete-post/' + ${post.id}}">Delete Post</a>
+                        <a id="postDel" th:if="${post.author.id == user.id}" th:href="@{'/delete-by-author/' + ${post.author.id}}">Delete all my Posts</a>
 
                     </div>
 

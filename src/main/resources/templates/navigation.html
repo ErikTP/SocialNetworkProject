@@ -33,7 +33,7 @@
             <li><a th:href="@{'/posts'}">Posts</a></li>
             <li><a th:href="@{'/profile/' + ${user.id}}">Profile</a></li>
             <li><a th:href="@{'/edit/' + ${user.id}}">Edit Account</a></li>
-            <li><a th:href="@{'/logout'}">Logout</a></li>
+            <li><a id="logOff" th:href="@{'/logout'}">Logout</a></li>
         </ul>
     </div>
 </nav>

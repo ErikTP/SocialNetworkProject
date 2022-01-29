@@ -34,7 +34,7 @@
     box-shadow: inset 2px 2px 0px 0px #000000;
 }
 
-#delAccount{
+#delAcc{
     display: inline-block;
     font-size: 16px;
     background-color: #ff0012;
@@ -48,7 +48,7 @@
     vertical-align: baseline;
 }
 
-#delAccount:hover{
+#delAcc:hover{
     box-shadow: inset 0px 0px 1px 2px #000000;
     background-color: #9c0011;
     color: #ffffff;
@@ -103,6 +103,20 @@
 .log-h1{
     color: #FFD700;
     margin-top: 10%;
+}
+
+.post-one{
+    color: #0013ff;
+    font-weight: bold;
+}
+
+.post-one:hover{
+    color: #0013ff;
+}
+
+#postDel{
+    color: #0013ff;
+    font-weight: bold;
 }
 
 html {

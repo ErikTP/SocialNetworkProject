@@ -1,22 +1,33 @@
-const delAccount = document.getElementById('delAccount')
-const delPosts = document.getElementById('delPosts')
+const postDel = document.getElementById('postDel')
+const logOff = document.getElementById('logOff')
+const delAcc = document.getElementById('delAcc')
 
-$(delAccount).click(() => {
-    if (confirm("Are you sure that you want to DELETE account?")) {
-        alert("Account Deleted Successfully")
+$(postDel).click(() => {
+    if (confirm("Do you really want to delete all your posts? This process cannot be undone!")) {
+        alert("Your posts have been deleted successfully!")
         return true;
     } else {
-        alert("Phew, that was close!")
+        alert("Delete request has been cancelled!")
         return false;
     }
 })
 
-$(delPosts).click(() => {
-    if (confirm("Are you sure that you want to delete ALL your posts?")) {
-        alert("Posts Deleted Successfully")
+$(logOff).click(() => {
+    if (confirm("Do you really want to log out? This process cannot be undone!")) {
+        alert("You have been successfully logged out!")
         return true;
     } else {
-        alert("Phew, that was close!")
+        alert("Log out request has been cancelled!")
+        return false;
+    }
+})
+
+$(delAcc).click(() => {
+    if (confirm("Do you really want to delete this account? This process cannot be undone!")) {
+        alert("Your account has been deleted successfully!")
+        return true;
+    } else {
+        alert("Delete request has been cancelled!")
         return false;
     }
 })
