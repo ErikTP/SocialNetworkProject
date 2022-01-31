@@ -51,14 +51,14 @@ public class PostController {
     /****** ### Raderar inlägg utifrån dess id ### ******/
     @GetMapping("/delete-post/{id}")
     public String postDelete(@PathVariable long id) {
-        postService.deletePost(id);
+        postService.postDeleteId(id);
         return "redirect:/posts";
     }
 
     /****** ### Raderar inlägg utifrån en kombination av id och användarnamn ### ******/
     @GetMapping("/delete-by-author/{id}")
     public String postsDeletesByAuthor(@PathVariable long id) {
-        postService.deletePostsByAuthorId(id);
+        postService.postsDeleteByAuthorId(id);
         return "redirect:/posts";
     }
 

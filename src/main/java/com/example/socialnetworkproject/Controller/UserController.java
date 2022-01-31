@@ -24,7 +24,7 @@ public class UserController {
 
     /**************** ### Webbapplikationens hemsida ### ****************/
     @GetMapping("/")
-    public String Homepage(@ModelAttribute("user") User user, Model model,
+    public String homepage(@ModelAttribute("user") User user, Model model,
                           @CookieValue(value = "userMemory", required = false) String userMemory) {
         if (userMemory != null && userMemory != "") {
             model.addAttribute("user", userService.findUserById(Long.parseLong(userMemory)));
@@ -52,7 +52,7 @@ public class UserController {
 
         if (password.equals(password_verify)) {
             user.setImg("https://via.placeholder.com/150");
-            userService.saveUser(user);
+            userService.userDataSave(user);
             return "redirect:/success";
         }
         return "redirect:/failed";
@@ -98,7 +98,7 @@ public class UserController {
 
         User user = userService.findUserByUsername(username);
 
-        if (user != null && userService.authUser(username, password)) {
+        if (user != null && userService.userDataAuth(username, password)) {
             Long id = user.getId();
             Cookie memory = new Cookie("userMemory", id.toString());
             memory.setMaxAge(7000);
@@ -126,7 +126,7 @@ public class UserController {
     @GetMapping("/profiles")
     public String viewProfiles(@ModelAttribute("user") User user, Model model,
                                @CookieValue(value = "userMemory", required = false) String userMemory) {
-        List<User> members = userService.findAllUsers();
+        List<User> members = userService.findUsers();
         model.addAttribute("users", members);
         if (userMemory != null && userMemory != "") {
             model.addAttribute("user", userService.findUserById(Long.parseLong(userMemory)));
@@ -150,7 +150,7 @@ public class UserController {
     /******** ### Uppdaterar användarkontot utifrån dess id ### ********/
     @PostMapping("/update-user")
     public String userUpdate(@ModelAttribute User user) {
-        userService.updateUser(user);
+        userService.userUpdateSave(user);
         Long id = user.getId();
         return "redirect:/profile/" + id;
     }
@@ -158,8 +158,8 @@ public class UserController {
     /******** ### Raderar användarkontot utifrån dess id ### ********/
     @GetMapping("/delete/{id}")
     public String userDelete(@PathVariable long id) {
-        userService.deleteUser(id);
-        postService.deletePostsByAuthorId(id);
+        userService.userDeleteId(id);
+        postService.postsDeleteByAuthorId(id);
         return "redirect:/logout";
     }
 

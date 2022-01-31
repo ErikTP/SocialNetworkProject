@@ -27,23 +27,23 @@ public class UserService {
     }
 
     /*** ### Lista av alla användare ### ***/
-    public List<User> findAllUsers() {
+    public List<User> findUsers() {
         return userRepository.findAll();
     }
 
-    /*** ### Autentisera användare genom DB som letar användarnamn och jämför lösenord ***/
-    public boolean authUser(String username, String password) {
+    /*** ### Autentisera användare genom databas som letar användarnamn och jämför lösenord ***/
+    public boolean userDataAuth(String username, String password) {
         User userData = userRepository.findByUsername(username);
         if (userData == null) {
             System.out.println("Username is incorrect " + username);
             return false;
         }
-        String compPass = createSecureHashPass(password, convertStringToByteForDB(userData.getSalt()));
+        String compPass = securePassWithHash(password, transformStringToByte(userData.getSalt()));
         return userData.getPassword().equals(compPass);
     }
 
     /*** ### Uppdatera användaruppgifter och spara det till databas ### ***/
-    public void updateUser(User user) {
+    public void userUpdateSave(User user) {
         User dataUser = userRepository.findById(user.getId()).orElseThrow();
         dataUser.setUsername(user.getUsername());
         dataUser.setAddress(user.getAddress());
@@ -51,16 +51,16 @@ public class UserService {
     }
 
     /*** ### Radera användare från databas via deras id ### ***/
-    public void deleteUser(long id) {
+    public void userDeleteId(long id) {
         userRepository.deleteById(id);
     }
 
 
     /*** ### Spara användare och enkrypterad lösenord ### ***/
-    public void saveUser(User user) {
-        byte[] byteSalt = generateSalt();
-        String strSalt = convertByteToStringForDB(byteSalt);
-        String passHash = createSecureHashPass(user.getPassword(), byteSalt);
+    public void userDataSave(User user) {
+        byte[] byteSalt = saltPassGenerate();
+        String strSalt = transformByteToString(byteSalt);
+        String passHash = securePassWithHash(user.getPassword(), byteSalt);
 
         if (!passHash.equals("")) {
             user.setSalt(strSalt);
@@ -70,12 +70,12 @@ public class UserService {
     }
 
     /*** ### Skapa Hash till lösenord ### ***/
-    public String createSecureHashPass(String plainTextPassword, byte[] byteSalt) {
+    public String securePassWithHash(String plainTextPassword, byte[] byteSalt) {
         try {
             MessageDigest msgDig = MessageDigest.getInstance("SHA-256");
             msgDig.update(byteSalt);
             byte[] passHash = msgDig.digest(plainTextPassword.getBytes());
-            return convertByteToStringForDB(passHash);
+            return transformByteToString(passHash);
 
         } catch (NoSuchAlgorithmException ex) {
             ex.printStackTrace();
@@ -83,18 +83,18 @@ public class UserService {
         return "";
     }
 
-    /*** ### Konvertera lösenordets Hash till sträng ### ***/
-    private String convertByteToStringForDB(byte[] passHash) {
+    /*** ### Konvertera lösenordets Hash till sträng för databasen ### ***/
+    private String transformByteToString(byte[] passHash) {
         return DatatypeConverter.printHexBinary(passHash).toLowerCase();
     }
 
-    /*** ### Konvertera lösenordets sträng till Byte ### ***/
-    private byte[] convertStringToByteForDB(String dataPass) {
+    /*** ### Konvertera lösenordets sträng till Byte för databasen ### ***/
+    private byte[] transformStringToByte(String dataPass) {
         return DatatypeConverter.parseHexBinary(dataPass);
     }
 
     /*** ### Generera lösenordets Salt ### ***/
-    private byte[] generateSalt() {
+    private byte[] saltPassGenerate() {
         SecureRandom randSec = new SecureRandom();
         byte[] genSalt = randSec.generateSeed(12);
         return genSalt;

@@ -13,16 +13,12 @@ public class PostService {
     @Autowired
     private PostRepository postRepository;
 
-    public void postSave(Post post) {
-        postRepository.save(post);
-    }
-
     public List<Post> postList() {
         return postRepository.findAll();
     }
 
-    public List<Post> findPostsByCreatedDate() {
-        return postRepository.findAllByOrderByCreatedDateDesc();
+    public void postSave(Post post) {
+        postRepository.save(post);
     }
 
     public List<Post> findPostByAuthorId(long id) {
@@ -33,13 +29,18 @@ public class PostService {
         return postRepository.findAllByAuthorIdOrderByCreatedDateDesc(id);
     }
 
-    public void deletePost(long id) {
+    public List<Post> findPostsByCreatedDate() {
+        return postRepository.findAllByOrderByCreatedDateDesc();
+    }
+
+    public void postsDeleteByAuthorId(long id) {
+        postRepository.deleteAllByAuthorId(id);
+    }
+
+    public void postDeleteId(long id) {
         postRepository.deleteById(id);
     }
 
-    public void deletePostsByAuthorId(long id) {
-        postRepository.deleteAllByAuthorId(id);
-    }
 
 }
 

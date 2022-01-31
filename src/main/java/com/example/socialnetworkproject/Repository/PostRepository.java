@@ -10,11 +10,11 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    List<Post> findByAuthorId(long id);
+    List<Post> findAllByOrderByCreatedDateDesc();
 
     List<Post> findAllByAuthorIdOrderByCreatedDateDesc(long id);
 
-    List<Post> findAllByOrderByCreatedDateDesc();
+    List<Post> findByAuthorId(long id);
 
     @Transactional
     void deleteAllByAuthorId(long id);
